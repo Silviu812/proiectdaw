@@ -10,6 +10,8 @@ namespace web_api.Models
         public string Email { get; set; } = String.Empty;
         public string Password { get; set; } = String.Empty;
         public string Role { get; set; } = WebRoles.Member;
+        public List<Review> Reviews { get; set; } = null!;
+        public Information Information { get; set; } = null!; 
     }
     public static class WebRoles
     {
