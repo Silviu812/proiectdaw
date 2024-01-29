@@ -1,14 +1,23 @@
-﻿namespace web_api.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using web_api.Models;
+using web_api.Services;
 
-
-
-
-namespace web_api.Models
+namespace web_api.Controllers
 {
-    public class UserController
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize(Policy = WebRoles.Member)]
+    public class UserController : ControllerBase
     {
-        [Key]
-        public int Id {  get; set; }
-        piblioc string UserName { get; set; } = String.Empty;
+        private readonly UserService _userService;
+        public UserController(UserService userService)
+        {
+            _userService = userService;
+        }
+        [HttpGet]
+        [Authorize(Policy = WebRoles.Admin)]
+        public async Task<ActionResult<List<User>>> GetAllUsers() => await _userService.GetAllUsers();
+
     }
 }
