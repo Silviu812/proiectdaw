@@ -14,6 +14,9 @@ namespace web_api
 
             builder.Services.AddControllers();
             builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<AuthService>();
+            builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<ReviewService>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters

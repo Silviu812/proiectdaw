@@ -11,6 +11,6 @@ namespace web_api.Data
         }
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Review> Reviews { get; set; } = null!;
-        //public DbSet<ProductListing> Products { get; set; } = null!;
+        public DbSet<Product> Products { get; set; } = null!;
     }
 }

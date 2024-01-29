@@ -39,6 +39,23 @@ namespace web_api.Services
             return user;
         }
 
+        public async Task<User> UpdateUser(User user)
+        {
+            var existingUser = await _userDbContext.Users.FindAsync(user.Id);
+            if (existingUser == null)
+            {
+                throw new KeyNotFoundException("User not found.");
+            }
+
+            existingUser.Username = user.Username;
+            existingUser.Email = user.Email;
+            existingUser.Password = user.Password; 
+            existingUser.Role = user.Role;
+
+            _userDbContext.Users.Update(existingUser);
+            await _userDbContext.SaveChangesAsync();
+            return existingUser;
+        }
 
 
         public async void DeleteUser(User user)

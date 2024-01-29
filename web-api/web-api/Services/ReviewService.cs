@@ -37,5 +37,33 @@ namespace web_api.Services
 
             return user.Reviews.ToList();
         }
+        public async Task<Review> CreateReview(Review review)
+        {
+            _userDbContext.Reviews.Add(review);
+            await _userDbContext.SaveChangesAsync();
+            return review;
+        }
+
+        public async Task<Review?> UpdateReview(int reviewId, Review updatedReview)
+        {
+            var review = await _userDbContext.Reviews.FindAsync(reviewId);
+            if (review == null) return null;
+
+            review.Content = updatedReview.Content;
+            review.Rating = updatedReview.Rating;
+
+            await _userDbContext.SaveChangesAsync();
+            return review;
+        }
+
+        public async Task<bool> DeleteReview(int reviewId)
+        {
+            var review = await _userDbContext.Reviews.FindAsync(reviewId);
+            if (review == null) return false;
+
+            _userDbContext.Reviews.Remove(review);
+            await _userDbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }
