@@ -18,6 +18,15 @@ namespace web_api.Controllers
         [HttpGet]
         [Authorize(Policy = WebRoles.Admin)]
         public async Task<ActionResult<List<User>>> GetAllUsers() => await _userService.GetAllUsers();
+        [HttpGet("reviews/{id}")]
+        [Authorize(Policy = WebRoles.Admin)]
+        public async Task<ActionResult<List<Review>>> GetUserReviews(int Id)
+        {
+            List<Review>? Reviews = await _userService.GetUserReviewsFromId(Id);
+            if (Reviews == null) return BadRequest("User Id Not Found");
+            else return Ok(Reviews);
+        }
+
 
     }
 }

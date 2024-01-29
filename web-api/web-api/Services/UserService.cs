@@ -39,6 +39,15 @@ namespace web_api.Services
             return user;
         }
 
+        public async Task <List<Review>> GetUserReviewsFromId(int Id)
+        {
+            User? user = await GetUserById(Id);
+            if (user == null) return null!;
+            else return user.Reviews.ToList();
+        }
+
+
+
         public async void DeleteUser(User user)
         {
             _userDbContext.Users.Remove(user);
