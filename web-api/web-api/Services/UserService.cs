@@ -58,7 +58,7 @@ namespace web_api.Services
         }
 
 
-        public async void DeleteUser(User user)
+        public async Task DeleteUser(User user)
         {
             _userDbContext.Users.Remove(user);
             await _userDbContext.SaveChangesAsync();

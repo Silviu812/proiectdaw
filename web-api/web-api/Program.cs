@@ -2,6 +2,9 @@ using web_api.Models;
 using web_api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using web_api.Data;
 namespace web_api
 {
     public class Program
@@ -17,6 +20,7 @@ namespace web_api
             builder.Services.AddScoped<AuthService>();
             builder.Services.AddScoped<ProductService>();
             builder.Services.AddScoped<ReviewService>();
+            builder.Services.AddSqlite<UserDbContext>(builder.Configuration.GetConnectionString("UserDatabase"));
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
